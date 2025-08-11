@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 import { ThemeToggle } from '../ThemeToggle'
 import { useThemeContext } from '../../contexts/ThemeContext'
 // Importez vos logos ici
-import logoLight from '../../assets/images/logo-dw31-light.png'
-import logoDark from '../../assets/images/logo-dw31-dark.png'
+import logoLight from '../../assets/images/logo-dw31-dark.png'
+import logoDark from '../../assets/images/logo-dw31-light.png'
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

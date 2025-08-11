@@ -2,8 +2,11 @@ import React from 'react'
 import { CheckCircle, Award, Users, Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { SEOHead } from '../components/SEOHead'
+import { useThemeContext } from '../contexts/ThemeContext'
 
 export const AboutPage: React.FC = () => {
+  const { isDark } = useThemeContext()
+  
   const stats = [
     { icon: Users, value: '50+', label: 'Clients satisfaits' },
     { icon: Award, value: '100+', label: 'Projets réalisés' },
@@ -41,13 +44,13 @@ export const AboutPage: React.FC = () => {
       
       <div className="pt-16">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
+        <section className={`py-20 ${isDark ? 'bg-gradient-to-br from-gray-900 to-gray-800' : 'bg-gradient-to-br from-blue-50 to-white'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+                className={`text-4xl sm:text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}
               >
                 Votre partenaire digital de confiance
               </motion.h1>
@@ -55,7 +58,7 @@ export const AboutPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-gray-600 leading-relaxed"
+                className={`text-xl leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
               >
                 Chez DevWeb31, nous combinons passion pour la technologie et 
                 expertise technique pour créer des solutions digitales qui 
@@ -66,7 +69,7 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="py-16 bg-white border-y border-gray-100">
+        <section className={`py-16 ${isDark ? 'bg-gray-800 border-y border-gray-700' : 'bg-white border-y border-gray-100'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
@@ -77,13 +80,13 @@ export const AboutPage: React.FC = () => {
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <stat.icon className="h-8 w-8 text-blue-600" />
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${isDark ? 'bg-blue-900' : 'bg-blue-100'}`}>
+                    <stat.icon className={`h-8 w-8 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-2">
+                  <div className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {stat.value}
                   </div>
-                  <div className="text-gray-600">
+                  <div className={isDark ? 'text-gray-300' : 'text-gray-600'}>
                     {stat.label}
                   </div>
                 </motion.div>
@@ -93,17 +96,17 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* About Content */}
-        <section className="py-20 bg-gray-50">
+        <section className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className={`text-3xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   Notre Mission
                 </h2>
-                <div className="space-y-6 text-gray-600 leading-relaxed">
+                <div className={`space-y-6 leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                   <p>
                     Fondé sur l'innovation et l'excellence technique, DevWeb31 
                     accompagne les entreprises dans leur transformation digitale. 
@@ -127,9 +130,9 @@ export const AboutPage: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="bg-white p-8 rounded-2xl shadow-lg"
+                className={`p-8 rounded-2xl shadow-lg ${isDark ? 'bg-gray-800' : 'bg-white'}`}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   Nos Valeurs
                 </h3>
                 <div className="space-y-4">
@@ -143,7 +146,7 @@ export const AboutPage: React.FC = () => {
                   ].map((value, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="h-6 w-6 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{value}</span>
+                      <span className={isDark ? 'text-gray-300' : 'text-gray-700'}>{value}</span>
                     </div>
                   ))}
                 </div>
@@ -153,13 +156,13 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* Expertise Section */}
-        <section className="py-20 bg-white">
+        <section className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                 Notre Expertise Technique
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                 Maîtrise complète des technologies modernes pour créer 
                 des solutions robustes et performantes
               </p>
@@ -172,14 +175,14 @@ export const AboutPage: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-gray-50 p-6 rounded-2xl"
+                  className={`p-6 rounded-2xl ${isDark ? 'bg-gray-700' : 'bg-gray-50'}`}
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {category.category}
                   </h3>
                   <ul className="space-y-2">
                     {category.skills.map((skill) => (
-                      <li key={skill} className="text-gray-600 text-sm">
+                      <li key={skill} className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                         • {skill}
                       </li>
                     ))}
