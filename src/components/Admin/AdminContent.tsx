@@ -1,19 +1,23 @@
-import React from 'react'
-import { Power, PowerOff, BarChart3, FileText, MessageSquare, Users, Database, Shield, Home, Globe, Mail, Bell, Cog, Star } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Power, PowerOff, BarChart3, FileText, MessageSquare, Users, Database, Shield, Home, Globe, Mail, Bell, Cog, Star, CheckCircle, Database as DatabaseIcon } from 'lucide-react'
 import { useThemeContext } from '../../contexts/ThemeContext'
+import { supabase } from '../../lib/supabase'
+import { motion } from 'framer-motion'
 
 interface AdminContentProps {
   currentSection: string
   isMaintenanceMode: boolean
   updating: boolean
   onToggleMaintenance: () => void
+  successMessage?: string | null
 }
 
 export const AdminContent: React.FC<AdminContentProps> = ({
   currentSection,
   isMaintenanceMode,
   updating,
-  onToggleMaintenance
+  onToggleMaintenance,
+  successMessage
 }) => {
   const { isDark } = useThemeContext()
 
@@ -39,6 +43,101 @@ export const AdminContent: React.FC<AdminContentProps> = ({
       </div>
     </div>
   )
+
+  // Composant de débogage temporaire
+  const DebugMaintenanceStatus = ({ isDark }: { isDark: boolean }) => {
+    const [dbStatus, setDbStatus] = useState<string>('Chargement...')
+    const [dbValue, setDbValue] = useState<string>('')
+
+    useEffect(() => {
+      checkDatabaseStatus()
+    }, [])
+
+    const checkDatabaseStatus = async () => {
+      try {
+        // Vérifier si la table existe
+        const { data, error } = await supabase
+          .from('site_settings')
+          .select('*')
+          .eq('key', 'maintenance_mode')
+          .single()
+
+        if (error) {
+          if (error.code === 'PGRST116') {
+            setDbStatus('❌ Table site_settings non trouvée ou vide')
+            setDbValue('N/A')
+          } else {
+            setDbStatus(`❌ Erreur: ${error.message}`)
+            setDbValue('N/A')
+          }
+        } else {
+          setDbStatus('✅ Table site_settings accessible')
+          setDbValue(data.value)
+        }
+      } catch (error) {
+        setDbStatus('❌ Erreur de connexion à la base de données')
+        setDbValue('N/A')
+      }
+    }
+
+    const createMaintenanceRecord = async () => {
+      try {
+        const { error } = await supabase
+          .from('site_settings')
+          .insert([{ key: 'maintenance_mode', value: 'false' }])
+          .select()
+          .single()
+
+        if (error) {
+          setDbStatus(`❌ Erreur lors de la création de l'enregistrement: ${error.message}`)
+          setDbValue('N/A')
+        } else {
+          setDbStatus('✅ Enregistrement créé avec succès')
+          setDbValue('false')
+        }
+      } catch (error) {
+        setDbStatus('❌ Erreur lors de la création de l\'enregistrement')
+        setDbValue('N/A')
+      }
+    }
+
+    return (
+      <div className={`mt-3 p-3 rounded-lg border ${isDark ? 'bg-yellow-900/20 border-yellow-800' : 'bg-yellow-50 border-yellow-200'}`}>
+        <div className="flex items-center gap-2 mb-2">
+          <DatabaseIcon className="h-4 w-4 text-yellow-600" />
+          <span className={`text-sm font-medium ${isDark ? 'text-yellow-300' : 'text-yellow-800'}`}>
+            Débogage Base de Données
+          </span>
+        </div>
+        <div className="text-xs space-y-1">
+          <p className={isDark ? 'text-yellow-200' : 'text-yellow-800'}>
+            <strong>Statut:</strong> {dbStatus}
+          </p>
+          <p className={isDark ? 'text-yellow-200' : 'text-yellow-800'}>
+            <strong>Valeur actuelle:</strong> {dbValue}
+          </p>
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={checkDatabaseStatus}
+              className={`px-2 py-1 rounded text-xs ${
+                isDark ? 'bg-yellow-800 hover:bg-yellow-700' : 'bg-yellow-200 hover:bg-yellow-300'
+              }`}
+            >
+              Actualiser
+            </button>
+            <button
+              onClick={createMaintenanceRecord}
+              className={`px-2 py-1 rounded text-xs ${
+                isDark ? 'bg-blue-800 hover:bg-blue-700' : 'bg-blue-200 hover:bg-blue-300'
+              }`}
+            >
+              Créer enregistrement
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const renderSection = () => {
     switch (currentSection) {
@@ -231,6 +330,25 @@ export const AdminContent: React.FC<AdminContentProps> = ({
                 <strong>ℹ️ Note :</strong> En mode maintenance, seuls les administrateurs peuvent accéder au site normal.
               </p>
             </div>
+
+            {/* Notification de succès */}
+            {successMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${
+                  isDark ? 'bg-green-900/20 border border-green-800' : 'bg-green-50 border border-green-200'
+                }`}
+              >
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                <span className={`text-sm ${isDark ? 'text-green-300' : 'text-green-800'}`}>
+                  {successMessage}
+                </span>
+              </motion.div>
+            )}
+
+            {/* Composant de débogage temporaire */}
+            <DebugMaintenanceStatus isDark={isDark} />
           </div>
         )
 

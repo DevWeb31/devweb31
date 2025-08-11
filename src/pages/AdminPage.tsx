@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase'
 import { motion } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { useThemeContext } from '../contexts/ThemeContext'
+import { useMaintenanceToggle } from '../hooks/useMaintenanceToggle'
 import { SEOHead } from '../components/SEOHead'
 import { AdminLayout } from '../components/Layout/AdminLayout'
 
@@ -11,7 +12,7 @@ export const AdminPage: React.FC = () => {
   const { user } = useAuth()
   const [isMaintenanceMode, setIsMaintenanceMode] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [updating, setUpdating] = useState(false)
+  const { updating, successMessage, toggleMaintenance } = useMaintenanceToggle()
 
   useEffect(() => {
     if (user) {
@@ -24,7 +25,7 @@ export const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('site_settings')
         .select('value')
-        .eq('key', 'maintenance')
+        .eq('key', 'maintenance_mode')
         .single()
 
       if (error && error.code !== 'PGRST116') {
@@ -40,28 +41,10 @@ export const AdminPage: React.FC = () => {
     }
   }
 
-  const toggleMaintenanceMode = async () => {
-    setUpdating(true)
-    
-    try {
-      const newValue = !isMaintenanceMode
-      
-      // Utiliser update au lieu d'upsert pour éviter les conflits
-      const { error } = await supabase
-        .from('site_settings')
-        .update({
-          value: newValue.toString(),
-          updated_at: new Date().toISOString()
-        })
-        .eq('key', 'maintenance')
-
-      if (error) throw error
-      
+  const handleToggleMaintenance = async () => {
+    const newValue = await toggleMaintenance(isMaintenanceMode)
+    if (newValue !== isMaintenanceMode) {
       setIsMaintenanceMode(newValue)
-    } catch (error) {
-      console.error('Error updating maintenance mode:', error)
-    } finally {
-      setUpdating(false)
     }
   }
 
@@ -88,7 +71,8 @@ export const AdminPage: React.FC = () => {
       <AdminLayout
         isMaintenanceMode={isMaintenanceMode}
         updating={updating}
-        onToggleMaintenance={toggleMaintenanceMode}
+        onToggleMaintenance={handleToggleMaintenance}
+        successMessage={successMessage}
       />
     </>
   )

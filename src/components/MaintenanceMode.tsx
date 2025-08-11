@@ -1,5 +1,5 @@
 import React from 'react'
-import { Settings, Clock } from 'lucide-react'
+import { Settings, Clock, Shield, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export const MaintenanceMode: React.FC = () => {
@@ -26,9 +26,24 @@ export const MaintenanceMode: React.FC = () => {
           une meilleure expérience. Nous serons de retour très bientôt !
         </p>
         
-        <div className="bg-blue-50 rounded-lg p-4">
+        <div className="bg-blue-50 rounded-lg p-4 mb-6">
           <p className="text-blue-800 font-medium">DevWeb31</p>
           <p className="text-blue-600 text-sm">Développement Web & Applications</p>
+        </div>
+
+        {/* Accès administrateur */}
+        <div className="border-t pt-6">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <Shield className="h-4 w-4 text-gray-500" />
+            <span className="text-sm text-gray-500">Accès administrateur</span>
+          </div>
+          <a
+            href="/login"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+          >
+            <span>Se connecter</span>
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
       </motion.div>
     </div>

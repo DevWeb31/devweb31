@@ -9,12 +9,14 @@ interface AdminLayoutProps {
   isMaintenanceMode: boolean
   updating: boolean
   onToggleMaintenance: () => void
+  successMessage?: string | null
 }
 
 export const AdminLayout: React.FC<AdminLayoutProps> = ({
   isMaintenanceMode,
   updating,
-  onToggleMaintenance
+  onToggleMaintenance,
+  successMessage
 }) => {
   const { isDark } = useThemeContext()
   const { user, signOut } = useAuth()
@@ -133,6 +135,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               isMaintenanceMode={isMaintenanceMode}
               updating={updating}
               onToggleMaintenance={onToggleMaintenance}
+              successMessage={successMessage}
             />
           </div>
         </main>
