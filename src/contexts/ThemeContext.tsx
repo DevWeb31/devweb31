@@ -46,7 +46,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const applyTheme = (theme: Theme) => {
     const resolved = getResolvedTheme(theme)
-    console.log('Applying theme:', theme, 'resolved:', resolved) // Debug log
     setResolvedTheme(resolved)
     
     if (resolved === 'dark') {

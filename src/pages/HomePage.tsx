@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { SEOHead } from '../components/SEOHead'
 
 export const HomePage: React.FC = () => {
+
+
   const services = [
     {
       icon: Globe,

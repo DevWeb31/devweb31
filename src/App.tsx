@@ -7,18 +7,45 @@ import { HomePage } from './pages/HomePage'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
 import { AdminPage } from './pages/AdminPage'
+import { LoginPage } from './pages/LoginPage'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { useMaintenanceMode } from './hooks/useMaintenanceMode'
 import { ThemeProvider, useThemeContext } from './contexts/ThemeContext'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
 
 function AppContent() {
   const { isDark } = useThemeContext()
+  const { loading: authLoading } = useAuth()
+
+  if (authLoading) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center transition-colors duration-200 ${
+        isDark ? 'bg-gray-900' : 'bg-white'
+      }`}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>Chargement...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-200 ${
       isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
     }`}>
       <Routes>
-        <Route path="/admin" element={<AdminPage />} />
+        {/* Routes publiques */}
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* Route admin protégée */}
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        } />
+        
+        {/* Routes principales du site */}
         <Route path="/*" element={
           <>
             <Header />
@@ -48,16 +75,18 @@ function App() {
     )
   }
 
-  // Show maintenance mode for all routes except admin
-  if (isMaintenanceMode && !window.location.pathname.startsWith('/admin')) {
+  // Show maintenance mode for all routes except admin and login
+  if (isMaintenanceMode && !window.location.pathname.startsWith('/admin') && !window.location.pathname.startsWith('/login')) {
     return <MaintenanceMode />
   }
 
   return (
     <ThemeProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
