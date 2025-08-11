@@ -1,4 +1,5 @@
 import React from 'react'
+// App principale de DevWeb31 - Version production
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Header } from './components/Layout/Header'
 import { Footer } from './components/Layout/Footer'
