@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     // Optimisations pour la production
     target: 'es2015',
-    minify: 'terser',
+    minify: 'esbuild', // Changé de 'terser' à 'esbuild' pour Vercel
     sourcemap: false,
     rollupOptions: {
       output: {
