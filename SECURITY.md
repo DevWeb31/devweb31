@@ -16,9 +16,9 @@ La sécurité de nos utilisateurs et de nos données est une priorité absolue. 
 ## 🔐 Responsabilités de Sécurité
 
 ### Équipe de Sécurité
-- **Responsable** : Damien (damien@devweb31.fr)
+- **Responsable** : Damien Oriente (Damiodev) - [contact@devweb31.fr](mailto:contact@devweb31.fr)
 - **Réponse** : Sous 24-48h pour les vulnérabilités critiques
-- **Coordination** : Avec l'équipe de développement
+- **Coordination** : Gestion directe par le développeur principal
 
 ### Niveaux de Gravité
 - **Critique** : Vulnérabilité exploitable à distance
@@ -113,8 +113,8 @@ La sécurité de nos utilisateurs et de nos données est une priorité absolue. 
 - **Réponse** : Sous 24h
 
 ### Urgences
-- **Hors heures** : +33 6 XX XX XX XX
-- **Signalement** : security@devweb31.fr
+- **Email principal** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
+- **Signalement** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
 
 ## 🙏 Remerciements
 

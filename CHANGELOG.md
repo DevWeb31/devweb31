@@ -101,7 +101,8 @@ src/
 - **Site en ligne** : [devweb31.fr](https://devweb31.fr)
 - **Repository** : [GitHub](https://github.com/Damiodev/devweb31)
 - **Documentation** : [README.md](README.md)
-- **Contribution** : [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Développeur** : Damien Oriente (Damiodev)
+- **Contact** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
 
 ---
 

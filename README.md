@@ -5,8 +5,9 @@
 [![Vite](https://img.shields.io/badge/Vite-5.4.2-purple.svg)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.1-38B2AC.svg)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-2.54.0-green.svg)](https://supabase.com/)
+[![License](https://img.shields.io/badge/License-Private-red.svg)](LICENSE)
 
-> **Site web professionnel moderne** développé avec les technologies les plus récentes pour présenter mes services de développement web et d'applications.
+> **Site web professionnel privé** développé avec les technologies les plus récentes pour présenter mes services de développement web et d'applications. Propriété exclusive de Damien Oriente (Damiodev).
 
 ## ✨ Fonctionnalités
 
@@ -133,12 +134,23 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce projet est la propriété exclusive de **Damien Oriente (Damiodev)**. Tous droits réservés.
+
+**⚠️ Attention** : Ce code source est privé et ne peut être reproduit, distribué ou utilisé commercialement sans autorisation écrite préalable.
+
+Pour toute demande d'utilisation, de licence ou de collaboration, contactez : [contact@devweb31.fr](mailto:contact@devweb31.fr)
+
+Voir le fichier `LICENSE` pour plus de détails.
+
+## 👨‍💻 Développeur
+
+**Damien Oriente** (Damiodev)  
+Développeur web professionnel spécialisé dans la création de sites modernes et performants.
 
 ## 📞 Contact
 
 - **Site Web** : [devweb31.fr](https://devweb31.fr)
-- **Email** : contact@devweb31.fr
+- **Email** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
 - **LinkedIn** : [Profil LinkedIn](https://linkedin.com/in/damiodev)
 - **GitHub** : [@Damiodev](https://github.com/Damiodev)
 

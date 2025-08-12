@@ -1,9 +1,9 @@
 {
   "name": "devweb31",
-  "description": "Site web professionnel moderne développé avec React 18, TypeScript et Tailwind CSS",
+  "description": "Site web professionnel privé développé avec React 18, TypeScript et Tailwind CSS - Propriété exclusive de Damien Oriente",
   "version": "1.0.0",
-  "author": "Damien <damien@devweb31.fr>",
-  "license": "MIT",
+  "author": "Damien Oriente <contact@devweb31.fr>",
+  "license": "UNLICENSED",
   "homepage": "https://devweb31.fr",
   "repository": {
     "type": "git",

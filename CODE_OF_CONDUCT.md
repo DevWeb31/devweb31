@@ -69,13 +69,13 @@ Ce Code de Conduite peut être mis à jour de temps à autre. Les modifications 
 ## 📞 Contact
 
 ### Équipe de Modération
-- **Email principal** : conduct@devweb31.fr
-- **Responsable** : Damien (damien@devweb31.fr)
+- **Email principal** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
+- **Responsable** : Damien Oriente (Damiodev)
 - **Réponse** : Sous 24h
 
 ### Escalade
-- **Urgences** : +33 6 XX XX XX XX
-- **Directeur** : damien@devweb31.fr
+- **Email principal** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
+- **Directeur** : [contact@devweb31.fr](mailto:contact@devweb31.fr)
 
 ## 🙏 Remerciements
 

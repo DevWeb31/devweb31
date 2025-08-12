@@ -1,6 +1,8 @@
 # 🤝 Guide de Contribution
 
-Merci de votre intérêt pour contribuer au projet DevWeb31 ! Ce document vous guidera à travers le processus de contribution.
+**⚠️ Note importante** : Ce projet est la propriété exclusive de **Damien Oriente (Damiodev)**. Les contributions externes ne sont pas acceptées actuellement.
+
+Ce document est fourni à titre informatif pour comprendre l'architecture et les standards de code utilisés dans ce projet privé.
 
 ## 📋 Table des Matières
 
@@ -15,7 +17,7 @@ Merci de votre intérêt pour contribuer au projet DevWeb31 ! Ce document vous g
 
 Ce projet et tous ses participants sont régis par notre Code de Conduite. En participant, vous acceptez de respecter ce code.
 
-## 🚀 Comment Contribuer
+## 🚀 Comment Signaler des Problèmes
 
 ### Signaler un Bug
 
@@ -35,13 +37,10 @@ Ce projet et tous ses participants sont régis par notre Code de Conduite. En pa
 3. Expliquez pourquoi cette fonctionnalité serait utile
 4. Proposez une approche technique si possible
 
-### Contribuer au Code
+### ⚠️ Contributions Externes
 
-1. Fork le repository
-2. Créez une branche pour votre fonctionnalité
-3. Développez votre contribution
-4. Testez vos changements
-5. Soumettez une Pull Request
+**Actuellement, ce projet n'accepte pas de contributions externes de code.**  
+Cependant, vos suggestions et signalements de bugs sont les bienvenus et contribuent à améliorer la qualité du projet.
 
 ## 💻 Guide de Développement
 
@@ -132,7 +131,9 @@ npm run test:coverage
 
 ## 🔄 Pull Request
 
-### Avant de Soumettre
+**⚠️ Note** : Ce projet étant privé, les Pull Requests externes ne sont pas acceptées actuellement.
+
+### Processus de Développement Interne
 
 1. **Tests** : Tous les tests passent
 2. **Linting** : Aucune erreur ESLint
@@ -140,45 +141,12 @@ npm run test:coverage
 4. **Responsive** : Testé sur mobile et desktop
 5. **Accessibilité** : Respect des standards WCAG
 
-### Template de Pull Request
+### Standards de Qualité
 
-```markdown
-## 📝 Description
-Description claire des changements apportés
-
-## 🔗 Issue liée
-Closes #(numéro de l'issue)
-
-## ✅ Checklist
-- [ ] Tests ajoutés/mis à jour
-- [ ] Documentation mise à jour
-- [ ] Code linté et formaté
-- [ ] Responsive design vérifié
-- [ ] Accessibilité testée
-
-## 📸 Captures d'écran
-Si applicable, ajoutez des captures d'écran
-
-## 🧪 Tests
-Description des tests effectués
-
-## 📱 Responsive
-- [ ] Desktop
-- [ ] Tablet
-- [ ] Mobile
-
-## ♿ Accessibilité
-- [ ] Navigation clavier
-- [ ] Lecteurs d'écran
-- [ ] Contraste des couleurs
-```
-
-### Processus de Review
-
-1. **Automatique** : Les checks CI/CD doivent passer
-2. **Code Review** : Au moins un maintainer doit approuver
-3. **Tests** : Validation des tests manuels
-4. **Merge** : Une fois approuvé, merge dans `develop`
+- **Code Review** : Auto-review obligatoire
+- **Tests** : Validation des tests manuels
+- **Documentation** : Mise à jour des docs si nécessaire
+- **Performance** : Vérification des métriques
 
 ## 📚 Ressources
 
@@ -195,4 +163,7 @@ Description des tests effectués
 
 ---
 
-**Merci de contribuer à DevWeb31 ! 🎉**
+**Merci de votre intérêt pour DevWeb31 ! 🎉**
+
+> **Note** : Ce projet est privé et appartient à Damien Oriente (Damiodev).  
+> Pour toute question ou suggestion, n'hésitez pas à créer une issue ou à nous contacter.
