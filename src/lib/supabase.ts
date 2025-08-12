@@ -1,9 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
+import { getCurrentConfig } from '../config/environments'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co'
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
+// Configuration Supabase basée sur l'environnement
+const config = getCurrentConfig()
+export const supabase = createClient(config.supabase.url, config.supabase.anonKey)
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+// Log de l'environnement actuel (seulement en développement)
+if (import.meta.env.DEV) {
+  console.log('🔧 Configuration Supabase:', {
+    url: config.supabase.url,
+    environment: config.name
+  })
+}
 
 export type Database = {
   public: {

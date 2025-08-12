@@ -10,6 +10,7 @@ import { ContactPage } from './pages/ContactPage'
 import { AdminPage } from './pages/AdminPage'
 import { LoginPage } from './pages/LoginPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { EnvironmentIndicator } from './components/EnvironmentIndicator'
 import { useMaintenanceMode } from './hooks/useMaintenanceMode'
 import { ThemeProvider, useThemeContext } from './contexts/ThemeContext'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
@@ -61,6 +62,9 @@ function AppContent() {
           </>
         } />
       </Routes>
+      
+      {/* Indicateur d'environnement */}
+      <EnvironmentIndicator />
     </div>
   )
 }

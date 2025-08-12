@@ -41,6 +41,36 @@ npm run dev
 npm run build
 ```
 
+## 🌍 Configuration des Environnements
+
+Ce projet supporte la séparation des environnements de développement et de production pour une meilleure sécurité et flexibilité.
+
+### 🚀 Démarrage Rapide avec Environnements
+
+```bash
+# Configuration automatique et démarrage en développement
+./scripts/dev-setup.sh
+
+# Ou manuellement :
+npm run dev:local    # Mode développement
+npm run dev:prod     # Mode production
+npm run build:dev    # Build développement
+npm run build:prod   # Build production
+```
+
+### 📁 Fichiers de Configuration
+
+- `env.development.example` → `.env.development` (local, non commité)
+- `env.production.example` → `.env.production` (Vercel)
+
+### 🔧 Configuration Supabase
+
+1. **Créer un projet de développement** sur [supabase.com](https://supabase.com)
+2. **Copier les variables** dans `.env.development`
+3. **Garder la production** dans `.env.production` (Vercel)
+
+📖 **Voir le guide complet** : [ENVIRONMENT_SETUP.md](ENVIRONMENT_SETUP.md)
+
 ## 👨‍💻 Développeur
 
 **Damien Oriente** (Damiodev)  
