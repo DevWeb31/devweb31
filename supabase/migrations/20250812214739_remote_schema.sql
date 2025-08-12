@@ -1,59 +1,70 @@
-revoke select on table "storage"."iceberg_namespaces" from "anon";
+DO $$
+BEGIN
+  -- Si la table iceberg_namespaces existe, appliquer les REVOKE, ALTER, DROP CONSTRAINT, DROP INDEX et DROP TABLE
+  IF EXISTS (
+    SELECT 1
+      FROM information_schema.tables
+     WHERE table_schema = 'storage'
+       AND table_name   = 'iceberg_namespaces'
+  ) THEN
+    -- Révocations sur iceberg_namespaces
+    REVOKE SELECT      ON storage.iceberg_namespaces FROM anon;
+    REVOKE SELECT      ON storage.iceberg_namespaces FROM authenticated;
+    REVOKE DELETE      ON storage.iceberg_namespaces FROM service_role;
+    REVOKE INSERT      ON storage.iceberg_namespaces FROM service_role;
+    REVOKE REFERENCES  ON storage.iceberg_namespaces FROM service_role;
+    REVOKE SELECT      ON storage.iceberg_namespaces FROM service_role;
+    REVOKE TRIGGER     ON storage.iceberg_namespaces FROM service_role;
+    REVOKE TRUNCATE    ON storage.iceberg_namespaces FROM service_role;
+    REVOKE UPDATE      ON storage.iceberg_namespaces FROM service_role;
 
-revoke select on table "storage"."iceberg_namespaces" from "authenticated";
+    -- Contraintes et index sur iceberg_namespaces
+    BEGIN
+      ALTER TABLE storage.iceberg_namespaces DROP CONSTRAINT iceberg_namespaces_bucket_id_fkey;
+    EXCEPTION WHEN undefined_object THEN END;
+    BEGIN
+      ALTER TABLE storage.iceberg_namespaces DROP CONSTRAINT iceberg_namespaces_pkey;
+    EXCEPTION WHEN undefined_object THEN END;
+    DROP INDEX IF EXISTS storage.iceberg_namespaces_pkey;
+    DROP INDEX IF EXISTS storage.idx_iceberg_namespaces_bucket_id;
 
-revoke delete on table "storage"."iceberg_namespaces" from "service_role";
+    -- Suppression de la table
+    DROP TABLE storage.iceberg_namespaces;
+  END IF;
 
-revoke insert on table "storage"."iceberg_namespaces" from "service_role";
+  -- Si la table iceberg_tables existe, appliquer les REVOKE, ALTER, DROP CONSTRAINT, DROP INDEX et DROP TABLE
+  IF EXISTS (
+    SELECT 1
+      FROM information_schema.tables
+     WHERE table_schema = 'storage'
+       AND table_name   = 'iceberg_tables'
+  ) THEN
+    -- Révocations sur iceberg_tables
+    REVOKE SELECT      ON storage.iceberg_tables FROM anon;
+    REVOKE SELECT      ON storage.iceberg_tables FROM authenticated;
+    REVOKE DELETE      ON storage.iceberg_tables FROM service_role;
+    REVOKE INSERT      ON storage.iceberg_tables FROM service_role;
+    REVOKE REFERENCES  ON storage.iceberg_tables FROM service_role;
+    REVOKE SELECT      ON storage.iceberg_tables FROM service_role;
+    REVOKE TRIGGER     ON storage.iceberg_tables FROM service_role;
+    REVOKE TRUNCATE    ON storage.iceberg_tables FROM service_role;
+    REVOKE UPDATE      ON storage.iceberg_tables FROM service_role;
 
-revoke references on table "storage"."iceberg_namespaces" from "service_role";
+    -- Contraintes et index sur iceberg_tables
+    BEGIN
+      ALTER TABLE storage.iceberg_tables DROP CONSTRAINT iceberg_tables_bucket_id_fkey;
+    EXCEPTION WHEN undefined_object THEN END;
+    BEGIN
+      ALTER TABLE storage.iceberg_tables DROP CONSTRAINT iceberg_tables_namespace_id_fkey;
+    EXCEPTION WHEN undefined_object THEN END;
+    BEGIN
+      ALTER TABLE storage.iceberg_tables DROP CONSTRAINT iceberg_tables_pkey;
+    EXCEPTION WHEN undefined_object THEN END;
+    DROP INDEX IF EXISTS storage.iceberg_tables_pkey;
+    DROP INDEX IF EXISTS storage.idx_iceberg_tables_namespace_id;
 
-revoke select on table "storage"."iceberg_namespaces" from "service_role";
-
-revoke trigger on table "storage"."iceberg_namespaces" from "service_role";
-
-revoke truncate on table "storage"."iceberg_namespaces" from "service_role";
-
-revoke update on table "storage"."iceberg_namespaces" from "service_role";
-
-revoke select on table "storage"."iceberg_tables" from "anon";
-
-revoke select on table "storage"."iceberg_tables" from "authenticated";
-
-revoke delete on table "storage"."iceberg_tables" from "service_role";
-
-revoke insert on table "storage"."iceberg_tables" from "service_role";
-
-revoke references on table "storage"."iceberg_tables" from "service_role";
-
-revoke select on table "storage"."iceberg_tables" from "service_role";
-
-revoke trigger on table "storage"."iceberg_tables" from "service_role";
-
-revoke truncate on table "storage"."iceberg_tables" from "service_role";
-
-revoke update on table "storage"."iceberg_tables" from "service_role";
-
-alter table "storage"."iceberg_namespaces" drop constraint "iceberg_namespaces_bucket_id_fkey";
-
-alter table "storage"."iceberg_tables" drop constraint "iceberg_tables_bucket_id_fkey";
-
-alter table "storage"."iceberg_tables" drop constraint "iceberg_tables_namespace_id_fkey";
-
-alter table "storage"."iceberg_namespaces" drop constraint "iceberg_namespaces_pkey";
-
-alter table "storage"."iceberg_tables" drop constraint "iceberg_tables_pkey";
-
-drop index if exists "storage"."iceberg_namespaces_pkey";
-
-drop index if exists "storage"."iceberg_tables_pkey";
-
-drop index if exists "storage"."idx_iceberg_namespaces_bucket_id";
-
-drop index if exists "storage"."idx_iceberg_tables_namespace_id";
-
-drop table "storage"."iceberg_namespaces";
-
-drop table "storage"."iceberg_tables";
-
-
+    -- Suppression de la table
+    DROP TABLE storage.iceberg_tables;
+  END IF;
+END
+$$;
