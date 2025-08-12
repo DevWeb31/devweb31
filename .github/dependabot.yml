@@ -1,0 +1,86 @@
+# Configuration Dependabot pour DevWeb31
+# Mise à jour automatique des dépendances
+
+version: 2
+updates:
+  # Mise à jour des dépendances npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "Damiodev"
+    assignees:
+      - "Damiodev"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+    ignore:
+      # Ignorer les mises à jour majeures automatiquement
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Autoriser les mises à jour automatiques pour les patches
+    allow:
+      - dependency-type: "direct"
+        update-type: "patch"
+      - dependency-type: "indirect"
+        update-type: "patch"
+
+  # Mise à jour des actions GitHub
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "Damiodev"
+    assignees:
+      - "Damiodev"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+      - "github-actions"
+
+  # Mise à jour des workflows GitHub
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "Damiodev"
+    assignees:
+      - "Damiodev"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+      - "workflows"
+
+# Configuration des notifications
+notifications:
+  - type: "security"
+    enabled: true
+  - type: "dependency-update"
+    enabled: true
+  - type: "vulnerability-alert"
+    enabled: true

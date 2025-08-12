@@ -1,0 +1,86 @@
+# Code Owners pour DevWeb31
+# Ce fichier définit qui est responsable de quelles parties du code
+
+# Propriétaire principal du projet
+* @Damiodev
+
+# Configuration et infrastructure
+/.github/ @Damiodev
+/scripts/ @Damiodev
+*.config.js @Damiodev
+*.config.ts @Damiodev
+package.json @Damiodev
+package-lock.json @Damiodev
+vite.config.ts @Damiodev
+tailwind.config.js @Damiodev
+tsconfig*.json @Damiodev
+eslint.config.js @Damiodev
+postcss.config.js @Damiodev
+vercel.json @Damiodev
+
+# Documentation
+README.md @Damiodev
+CHANGELOG.md @Damiodev
+CONTRIBUTING.md @Damiodev
+CODE_OF_CONDUCT.md @Damiodev
+SECURITY.md @Damiodev
+*.md @Damiodev
+
+# Configuration des environnements
+.env* @Damiodev
+env.* @Damiodev
+
+# Architecture principale
+/src/App.tsx @Damiodev
+/src/main.tsx @Damiodev
+/src/index.css @Damiodev
+/src/vite-env.d.ts @Damiodev
+
+# Composants de mise en page
+/src/components/Layout/ @Damiodev
+/src/components/Admin/ @Damiodev
+
+# Pages principales
+/src/pages/ @Damiodev
+
+# Contextes et hooks
+/src/contexts/ @Damiodev
+/src/hooks/ @Damiodev
+
+# Configuration et utilitaires
+/src/lib/ @Damiodev
+
+# Assets et ressources
+/src/assets/ @Damiodev
+
+# Tests
+/tests/ @Damiodev
+*.test.ts @Damiodev
+*.test.tsx @Damiodev
+*.spec.ts @Damiodev
+*.spec.tsx @Damiodev
+
+# Déploiement et CI/CD
+/.github/workflows/ @Damiodev
+/.github/ISSUE_TEMPLATE.md @Damiodev
+/.github/pull_request_template.md @Damiodev
+/.github/dependabot.yml @Damiodev
+/.github/FUNDING.yml @Damiodev
+
+# Base de données et migrations
+/SUPABASE_*.sql @Damiodev
+/SUPABASE_*.md @Damiodev
+
+# Scripts de déploiement
+/scripts/deploy.sh @Damiodev
+/scripts/health-check.sh @Damiodev
+
+# Configuration de maintenance
+/MAINTENANCE_MODE_SETUP.md @Damiodev
+/RESPONSIVE_DESIGN.md @Damiodev
+/README_DEPLOYMENT.md @Damiodev
+/DEPLOYMENT_GUIDE.md @Damiodev
+/vercel-setup.md @Damiodev
+
+# Licences et légaux
+LICENSE @Damiodev

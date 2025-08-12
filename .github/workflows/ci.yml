@@ -1,0 +1,254 @@
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '18'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Vérification de la qualité du code
+  quality:
+    name: 🔍 Qualité du Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🧹 Linting avec ESLint
+        run: npm run lint
+        
+      - name: 🔍 Vérification TypeScript
+        run: npx tsc --noEmit
+        
+      - name: 📏 Vérification du formatage
+        run: npx prettier --check "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+  # Tests automatisés
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    needs: quality
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🧪 Exécution des tests
+        run: npm test
+        
+      - name: 📊 Couverture de code
+        run: npm run test:coverage
+        
+      - name: 📈 Upload de la couverture
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+  # Build et vérification
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [quality, test]
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🔐 Configuration des variables d'environnement
+        run: |
+          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env
+          echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env
+          
+      - name: 🏗️ Build de production
+        run: npm run build
+        
+      - name: 📏 Vérification de la taille du bundle
+        run: |
+          npm install -g bundle-analyzer
+          bundle-analyzer dist/stats.html
+          
+      - name: 🧪 Test de la build
+        run: npm run preview &
+          sleep 10
+          npm run test:e2e
+
+  # Tests de sécurité
+  security:
+    name: 🛡️ Sécurité
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🔍 Audit de sécurité npm
+        run: npm audit --audit-level=moderate
+        
+      - name: 🐛 Scan des vulnérabilités
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  # Tests de performance
+  performance:
+    name: ⚡ Performance
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🚀 Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            http://localhost:4173/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  # Déploiement automatique
+  deploy:
+    name: 🚀 Déploiement
+    runs-on: ubuntu-latest
+    needs: [build, security, performance]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📦 Installation des dépendances
+        run: npm ci
+        
+      - name: 🏗️ Build de production
+        run: npm run build
+        
+      - name: 🚀 Déploiement sur Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+
+  # Notification de succès
+  notify-success:
+    name: ✅ Notification de Succès
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: always()
+    
+    steps:
+      - name: 📧 Envoi d'email de succès
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ Build DevWeb31 réussi"
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: "CI/CD DevWeb31"
+          body: |
+            🎉 Build réussi pour DevWeb31 !
+            
+            📊 Résumé :
+            - Commit: ${{ github.sha }}
+            - Branche: ${{ github.ref }}
+            - Auteur: ${{ github.actor }}
+            - Date: ${{ github.event.head_commit.timestamp }}
+            
+            🔗 Voir les détails : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  # Notification d'échec
+  notify-failure:
+    name: ❌ Notification d'Échec
+    runs-on: ubuntu-latest
+    needs: [quality, test, build, security, performance]
+    if: failure()
+    
+    steps:
+      - name: 📧 Envoi d'email d'échec
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "❌ Build DevWeb31 échoué"
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: "CI/CD DevWeb31"
+          body: |
+            🚨 Build échoué pour DevWeb31 !
+            
+            📊 Résumé :
+            - Commit: ${{ github.sha }}
+            - Branche: ${{ github.ref }}
+            - Auteur: ${{ github.actor }}
+            - Date: ${{ github.event.head_commit.timestamp }}
+            
+            🔗 Voir les détails : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            ⚠️ Veuillez vérifier et corriger les erreurs.
