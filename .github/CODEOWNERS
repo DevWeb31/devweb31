@@ -21,9 +21,6 @@ vercel.json @Damiodev
 # Documentation
 README.md @Damiodev
 CHANGELOG.md @Damiodev
-CONTRIBUTING.md @Damiodev
-CODE_OF_CONDUCT.md @Damiodev
-SECURITY.md @Damiodev
 *.md @Damiodev
 
 # Configuration des environnements
