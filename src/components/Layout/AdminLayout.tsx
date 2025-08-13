@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, X, LogOut, User, Settings, Globe } from 'lucide-react'
+import { Menu, X, LogOut, User, Globe } from 'lucide-react'
 import { useThemeContext } from '../../contexts/ThemeContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { Sidebar } from './Sidebar'
@@ -19,7 +19,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   successMessage
 }) => {
   const { isDark } = useThemeContext()
-  const { user, signOut } = useAuth()
+  const { signOut } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [currentSection, setCurrentSection] = useState('dashboard')
@@ -36,13 +36,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const handleLogout = async () => {
-    await signOut()
-  }
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
 
   const toggleSidebarCollapse = () => {
     setSidebarCollapsed(!sidebarCollapsed)

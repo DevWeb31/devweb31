@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { motion } from 'framer-motion'
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useThemeContext } from '../contexts/ThemeContext'
@@ -35,7 +34,7 @@ export const LoginPage: React.FC = () => {
         // Redirection vers la page admin après connexion réussie
         navigate('/admin')
       }
-    } catch (err) {
+    } catch {
       setError('Une erreur inattendue s\'est produite')
     } finally {
       setIsLoading(false)
@@ -53,7 +52,7 @@ export const LoginPage: React.FC = () => {
       
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
@@ -67,23 +66,23 @@ export const LoginPage: React.FC = () => {
             <p className={`mt-2 text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
               Accédez à votre espace d'administration
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className={`p-8 rounded-2xl shadow-lg ${isDark ? 'bg-gray-800' : 'bg-white'}`}
           >
             {error && (
-              <motion.div
+              <div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3"
               >
                 <AlertCircle className="h-5 w-5 text-red-600" />
                 <p className="text-red-800 text-sm">{error}</p>
-              </motion.div>
+              </div>
             )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -185,7 +184,7 @@ export const LoginPage: React.FC = () => {
                 </a>
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </>
