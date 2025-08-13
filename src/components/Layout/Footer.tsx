@@ -1,6 +1,6 @@
 import React from 'react'
 import { Mail, MapPin, Phone, Settings } from 'lucide-react'
-import { useThemeContext } from '../../contexts/ThemeContext'
+import { useThemeContext } from '../../hooks/useThemeContext'
 import logoLight from '../../assets/images/logo-dw31-light.png'
 import logoDark from '../../assets/images/logo-dw31-dark.png'
 

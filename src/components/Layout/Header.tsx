@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { ThemeToggle } from '../ThemeToggle'
-import { useThemeContext } from '../../contexts/ThemeContext'
+import { useThemeContext } from '../../hooks/useThemeContext'
 // Importez vos logos ici
 import logoLight from '../../assets/images/logo-dw31-dark.png'
 import logoDark from '../../assets/images/logo-dw31-light.png'

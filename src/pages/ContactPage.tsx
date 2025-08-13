@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Mail, MapPin, Phone, Send, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { SEOHead } from '../components/SEOHead'
-import { useThemeContext } from '../contexts/ThemeContext'
+import { useThemeContext } from '../hooks/useThemeContext'
 
 interface ContactFormData {
   name: string

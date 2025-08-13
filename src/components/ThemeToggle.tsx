@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sun, Moon, Monitor } from 'lucide-react'
-import { useThemeContext, Theme } from '../contexts/ThemeContext'
+import { useThemeContext } from '../hooks/useThemeContext'
+import { Theme } from '../types/ThemeContextType'
 import { useSnackbar } from '../hooks/useSnackbar'
 import { Snackbar } from './Snackbar'
 

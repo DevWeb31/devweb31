@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react'
-import { useAuth } from '../contexts/AuthContext'
-import { useThemeContext } from '../contexts/ThemeContext'
+import { useAuth } from '../hooks/useAuth'
+import { useThemeContext } from '../hooks/useThemeContext'
 import { SEOHead } from '../components/SEOHead'
 import { useNavigate } from 'react-router-dom'
 

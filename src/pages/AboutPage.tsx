@@ -2,7 +2,7 @@ import React from 'react'
 import { CheckCircle, Award, Users, Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { SEOHead } from '../components/SEOHead'
-import { useThemeContext } from '../contexts/ThemeContext'
+import { useThemeContext } from '../hooks/useThemeContext'
 
 export const AboutPage: React.FC = () => {
   const { isDark } = useThemeContext()

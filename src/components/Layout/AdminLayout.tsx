@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, X, LogOut, User, Globe } from 'lucide-react'
-import { useThemeContext } from '../../contexts/ThemeContext'
-import { useAuth } from '../../contexts/AuthContext'
+import { useThemeContext } from '../../hooks/useThemeContext'
+import { useAuth } from '../../hooks/useAuth'
 import { Sidebar } from './Sidebar'
 import { AdminContent } from '../Admin/AdminContent'
 

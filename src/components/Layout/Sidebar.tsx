@@ -18,7 +18,7 @@ import {
   ChevronLeft,
   User
 } from 'lucide-react'
-import { useThemeContext } from '../../contexts/ThemeContext'
+import { useThemeContext } from '../../hooks/useThemeContext'
 
 interface SidebarProps {
   isOpen: boolean

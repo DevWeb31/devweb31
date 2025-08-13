@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Power, BarChart3, FileText, MessageSquare, Users, Database, Shield, Globe, Mail, Bell, Cog, Star, CheckCircle, Database as DatabaseIcon } from 'lucide-react'
-import { useThemeContext } from '../../contexts/ThemeContext'
+import { useThemeContext } from '../../hooks/useThemeContext'
 import { supabase } from '../../lib/supabase'
 
 interface AdminContentProps {

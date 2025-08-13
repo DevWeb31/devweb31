@@ -1,15 +1,6 @@
-import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react'
-
-export type Theme = 'system' | 'dark' | 'light'
-
-interface ThemeContextType {
-  theme: Theme
-  resolvedTheme: 'light' | 'dark'
-  isDark: boolean
-  changeTheme: (newTheme: Theme) => void
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+import React, { useState, useEffect, useCallback, ReactNode } from 'react'
+import { ThemeContextType, Theme } from '../types/ThemeContextType'
+import { ThemeContext } from './ThemeContextValue'
 
 
 
