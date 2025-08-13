@@ -1,17 +1,11 @@
 import React from 'react';
 import { getCurrentConfig, isDevelopment } from '../config/environments';
 
-interface EnvironmentIndicatorProps {
-  showInProduction?: boolean;
-}
-
-export const EnvironmentIndicator: React.FC<EnvironmentIndicatorProps> = ({
-  showInProduction = false,
-}) => {
+export const EnvironmentIndicator: React.FC = () => {
   const config = getCurrentConfig();
 
-  // Ne pas afficher en production sauf si explicitement demandé
-  if (!isDevelopment() && !showInProduction) {
+  // Ne JAMAIS afficher en production (sécurité)
+  if (!isDevelopment()) {
     return null;
   }
 

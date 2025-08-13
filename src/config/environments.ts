@@ -42,8 +42,12 @@ export type Environment = keyof typeof ENV_CONFIG;
 
 // Fonction utilitaire pour obtenir la configuration de l'environnement actuel
 export const getCurrentEnvironment = (): Environment => {
-  const env = import.meta.env.VITE_ENV || 'development';
-  return env === 'production' ? 'production' : 'development';
+  // Détection automatique basée sur l'URL
+  const isProd = window.location.hostname === 'devweb31.fr' || 
+                 window.location.hostname === 'www.devweb31.fr' ||
+                 import.meta.env.VITE_ENV === 'production';
+  
+  return isProd ? 'production' : 'development';
 };
 
 // Fonction utilitaire pour obtenir la configuration de l'environnement actuel
@@ -53,7 +57,24 @@ export const getCurrentConfig = () => {
 };
 
 // Fonction utilitaire pour vérifier si on est en développement
-export const isDevelopment = () => getCurrentEnvironment() === 'development';
+export const isDevelopment = () => {
+  const env = getCurrentEnvironment();
+  return env === 'development';
+};
 
 // Fonction utilitaire pour vérifier si on est en production
-export const isProduction = () => getCurrentEnvironment() === 'production';
+export const isProduction = () => {
+  const env = getCurrentEnvironment();
+  return env === 'production';
+};
+
+// Fonction de débogage pour vérifier l'environnement
+export const debugEnvironment = () => {
+  console.log('🔍 Debug Environnement:', {
+    hostname: window.location.hostname,
+    VITE_ENV: import.meta.env.VITE_ENV,
+    currentEnv: getCurrentEnvironment(),
+    isDev: isDevelopment(),
+    isProd: isProduction()
+  });
+};
