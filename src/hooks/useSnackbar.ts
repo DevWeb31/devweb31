@@ -1,38 +1,41 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback } from 'react';
 
-export type SnackbarType = 'success' | 'info' | 'warning' | 'error'
+export type SnackbarType = 'success' | 'info' | 'warning' | 'error';
 
 interface SnackbarState {
-  message: string
-  type: SnackbarType
-  isVisible: boolean
+  message: string;
+  type: SnackbarType;
+  isVisible: boolean;
 }
 
 export const useSnackbar = () => {
   const [snackbar, setSnackbar] = useState<SnackbarState>({
     message: '',
     type: 'success',
-    isVisible: false
-  })
+    isVisible: false,
+  });
 
-  const showSnackbar = useCallback((message: string, type: SnackbarType = 'success') => {
-    setSnackbar({
-      message,
-      type,
-      isVisible: true
-    })
-  }, [])
+  const showSnackbar = useCallback(
+    (message: string, type: SnackbarType = 'success') => {
+      setSnackbar({
+        message,
+        type,
+        isVisible: true,
+      });
+    },
+    []
+  );
 
   const hideSnackbar = useCallback(() => {
     setSnackbar(prev => ({
       ...prev,
-      isVisible: false
-    }))
-  }, [])
+      isVisible: false,
+    }));
+  }, []);
 
   return {
     snackbar,
     showSnackbar,
-    hideSnackbar
-  }
-}
+    hideSnackbar,
+  };
+};

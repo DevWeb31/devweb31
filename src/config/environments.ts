@@ -3,8 +3,12 @@ export const ENV_CONFIG = {
   development: {
     name: 'Développement',
     supabase: {
-      url: import.meta.env.VITE_SUPABASE_URL_DEV || import.meta.env.VITE_SUPABASE_URL,
-      anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY_DEV || import.meta.env.VITE_SUPABASE_ANON_KEY,
+      url:
+        import.meta.env.VITE_SUPABASE_URL_DEV ||
+        import.meta.env.VITE_SUPABASE_URL,
+      anonKey:
+        import.meta.env.VITE_SUPABASE_ANON_KEY_DEV ||
+        import.meta.env.VITE_SUPABASE_ANON_KEY,
     },
     features: {
       debugMode: true,
