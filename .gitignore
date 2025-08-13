@@ -123,6 +123,12 @@ temp/
 
 # Supabase
 .supabase/
+supabase/.branches/
+supabase/.temp/
+
+# Backups
+backups/*.sql
+backups/*.dump
 
 # Testing
 /coverage

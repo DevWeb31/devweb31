@@ -39,7 +39,13 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "supabase:dev": "./scripts/supabase-dev.sh",
+    "supabase:prod": "./scripts/supabase-prod.sh",
+    "git:workflow": "./scripts/git-workflow.sh",
+    "db:dev": "./scripts/supabase-dev.sh start",
+    "db:prod": "./scripts/supabase-prod.sh status",
+    "setup:dev": "./scripts/setup-dev-env.sh"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
