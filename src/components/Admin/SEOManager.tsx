@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useThemeContext } from '../../hooks/useThemeContext';
-import { 
-  Search, 
-  Share2, 
-  BarChart3, 
-  Settings, 
-  Code, 
+import {
+  Search,
+  Share2,
+  BarChart3,
+  Settings,
+  Code,
   FileText,
   Save,
   RefreshCw,
   ExternalLink,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 
 interface SEOSettings {
@@ -44,9 +44,9 @@ export const SEOManager: React.FC = () => {
     canonical_urls: true,
     sitemap_enabled: true,
     robots_txt: '',
-    structured_data: ''
+    structured_data: '',
   });
-  
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -63,9 +63,18 @@ export const SEOManager: React.FC = () => {
         .from('site_settings')
         .select('key, value')
         .in('key', [
-          'site_title', 'site_description', 'site_keywords', 'site_url',
-          'og_image', 'twitter_handle', 'google_analytics_id', 'google_search_console',
-          'canonical_urls', 'sitemap_enabled', 'robots_txt', 'structured_data'
+          'site_title',
+          'site_description',
+          'site_keywords',
+          'site_url',
+          'og_image',
+          'twitter_handle',
+          'google_analytics_id',
+          'google_search_console',
+          'canonical_urls',
+          'sitemap_enabled',
+          'robots_txt',
+          'structured_data',
         ]);
 
       if (error) throw error;
@@ -96,7 +105,7 @@ export const SEOManager: React.FC = () => {
       const updates = Object.entries(settings).map(([key, value]) => ({
         key,
         value: typeof value === 'boolean' ? value.toString() : value,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       }));
 
       const { error } = await supabase
@@ -131,8 +140,8 @@ export const SEOManager: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className='flex items-center justify-center p-8'>
+        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>
       </div>
     );
   }
@@ -142,41 +151,44 @@ export const SEOManager: React.FC = () => {
     { id: 'social', label: 'Réseaux Sociaux', icon: Share2 },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'advanced', label: 'Avancé', icon: Code },
-    { id: 'tools', label: 'Outils', icon: FileText }
+    { id: 'tools', label: 'Outils', icon: FileText },
   ];
 
   return (
-    <div className={`p-6 ${isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div
+      className={`p-6 ${isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}
+    >
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold flex items-center gap-3">
-          <Search className="w-8 h-8 text-blue-600" />
+      <div className='mb-6'>
+        <h1 className='text-2xl font-bold flex items-center gap-3'>
+          <Search className='w-8 h-8 text-blue-600' />
           Gestion SEO & Métadonnées
         </h1>
         <p className={`mt-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-          Configurez tous les paramètres SEO de votre site pour optimiser votre visibilité en ligne
+          Configurez tous les paramètres SEO de votre site pour optimiser votre
+          visibilité en ligne
         </p>
       </div>
 
       {/* Messages de statut */}
       {successMessage && (
-        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-center gap-2">
-          <CheckCircle className="w-5 h-5" />
+        <div className='mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-center gap-2'>
+          <CheckCircle className='w-5 h-5' />
           {successMessage}
         </div>
       )}
-      
+
       {errorMessage && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center gap-2">
-          <AlertCircle className="w-5 h-5" />
+        <div className='mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center gap-2'>
+          <AlertCircle className='w-5 h-5' />
           {errorMessage}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="mb-6">
-        <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
-          {tabs.map((tab) => {
+      <div className='mb-6'>
+        <div className='flex space-x-1 bg-gray-100 rounded-lg p-1'>
+          {tabs.map(tab => {
             const Icon = tab.icon;
             return (
               <button
@@ -188,7 +200,7 @@ export const SEOManager: React.FC = () => {
                     : `${isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className='w-4 h-4' />
                 {tab.label}
               </button>
             );
@@ -197,63 +209,98 @@ export const SEOManager: React.FC = () => {
       </div>
 
       {/* Contenu des tabs */}
-      <div className="space-y-6">
+      <div className='space-y-6'>
         {/* Tab Basique */}
         {activeTab === 'basic' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <div>
-                <label className="block text-sm font-medium mb-2">Titre du site</label>
+                <label className='block text-sm font-medium mb-2'>
+                  Titre du site
+                </label>
                 <input
-                  type="text"
+                  type='text'
                   value={settings.site_title}
-                  onChange={(e) => setSettings(prev => ({ ...prev, site_title: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      site_title: e.target.value,
+                    }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="DevWeb31 - Développement Web & Applications"
+                  placeholder='DevWeb31 - Développement Web & Applications'
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium mb-2">URL du site</label>
+                <label className='block text-sm font-medium mb-2'>
+                  URL du site
+                </label>
                 <input
-                  type="url"
+                  type='url'
                   value={settings.site_url}
-                  onChange={(e) => setSettings(prev => ({ ...prev, site_url: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({ ...prev, site_url: e.target.value }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="https://devweb31.fr"
+                  placeholder='https://devweb31.fr'
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Description du site</label>
+              <label className='block text-sm font-medium mb-2'>
+                Description du site
+              </label>
               <textarea
                 value={settings.site_description}
-                onChange={(e) => setSettings(prev => ({ ...prev, site_description: e.target.value }))}
+                onChange={e =>
+                  setSettings(prev => ({
+                    ...prev,
+                    site_description: e.target.value,
+                  }))
+                }
                 rows={3}
                 className={`w-full px-3 py-2 border rounded-lg ${
-                  isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                  isDark
+                    ? 'bg-gray-800 border-gray-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-900'
                 }`}
-                placeholder="Description optimisée SEO de votre site..."
+                placeholder='Description optimisée SEO de votre site...'
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Mots-clés</label>
+              <label className='block text-sm font-medium mb-2'>
+                Mots-clés
+              </label>
               <input
-                type="text"
+                type='text'
                 value={settings.site_keywords}
-                onChange={(e) => setSettings(prev => ({ ...prev, site_keywords: e.target.value }))}
+                onChange={e =>
+                  setSettings(prev => ({
+                    ...prev,
+                    site_keywords: e.target.value,
+                  }))
+                }
                 className={`w-full px-3 py-2 border rounded-lg ${
-                  isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                  isDark
+                    ? 'bg-gray-800 border-gray-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-900'
                 }`}
-                placeholder="développement web, applications, React, Toulouse"
+                placeholder='développement web, applications, React, Toulouse'
               />
-              <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              <p
+                className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+              >
                 Séparez les mots-clés par des virgules
               </p>
             </div>
@@ -262,50 +309,77 @@ export const SEOManager: React.FC = () => {
 
         {/* Tab Réseaux Sociaux */}
         {activeTab === 'social' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <div>
-                <label className="block text-sm font-medium mb-2">Image Open Graph</label>
+                <label className='block text-sm font-medium mb-2'>
+                  Image Open Graph
+                </label>
                 <input
-                  type="url"
+                  type='url'
                   value={settings.og_image}
-                  onChange={(e) => setSettings(prev => ({ ...prev, og_image: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({ ...prev, og_image: e.target.value }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="https://devweb31.fr/og-image.jpg"
+                  placeholder='https://devweb31.fr/og-image.jpg'
                 />
-                <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                <p
+                  className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                >
                   Image de 1200x630px recommandée
                 </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium mb-2">Handle Twitter</label>
+                <label className='block text-sm font-medium mb-2'>
+                  Handle Twitter
+                </label>
                 <input
-                  type="text"
+                  type='text'
                   value={settings.twitter_handle}
-                  onChange={(e) => setSettings(prev => ({ ...prev, twitter_handle: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      twitter_handle: e.target.value,
+                    }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="@devweb31"
+                  placeholder='@devweb31'
                 />
               </div>
             </div>
 
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h3 className="font-medium text-blue-900 mb-2">Aperçu Open Graph</h3>
-              <div className="border rounded-lg p-3 bg-white">
-                <div className="w-full h-32 bg-gray-200 rounded mb-2 flex items-center justify-center">
+            <div className='p-4 bg-blue-50 border border-blue-200 rounded-lg'>
+              <h3 className='font-medium text-blue-900 mb-2'>
+                Aperçu Open Graph
+              </h3>
+              <div className='border rounded-lg p-3 bg-white'>
+                <div className='w-full h-32 bg-gray-200 rounded mb-2 flex items-center justify-center'>
                   {settings.og_image ? (
-                    <img src={settings.og_image} alt="OG Preview" className="w-full h-full object-cover rounded" />
+                    <img
+                      src={settings.og_image}
+                      alt='OG Preview'
+                      className='w-full h-full object-cover rounded'
+                    />
                   ) : (
-                    <span className="text-gray-500">Aperçu de l'image</span>
+                    <span className='text-gray-500'>Aperçu de l'image</span>
                   )}
                 </div>
-                <h4 className="font-bold text-gray-900">{settings.site_title || 'Titre du site'}</h4>
-                <p className="text-sm text-gray-600">{settings.site_description || 'Description du site'}</p>
+                <h4 className='font-bold text-gray-900'>
+                  {settings.site_title || 'Titre du site'}
+                </h4>
+                <p className='text-sm text-gray-600'>
+                  {settings.site_description || 'Description du site'}
+                </p>
               </div>
             </div>
           </div>
@@ -313,45 +387,67 @@ export const SEOManager: React.FC = () => {
 
         {/* Tab Analytics */}
         {activeTab === 'analytics' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <div>
-                <label className="block text-sm font-medium mb-2">Google Analytics ID</label>
+                <label className='block text-sm font-medium mb-2'>
+                  Google Analytics ID
+                </label>
                 <input
-                  type="text"
+                  type='text'
                   value={settings.google_analytics_id}
-                  onChange={(e) => setSettings(prev => ({ ...prev, google_analytics_id: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      google_analytics_id: e.target.value,
+                    }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="G-XXXXXXXXXX"
+                  placeholder='G-XXXXXXXXXX'
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium mb-2">Google Search Console</label>
+                <label className='block text-sm font-medium mb-2'>
+                  Google Search Console
+                </label>
                 <input
-                  type="text"
+                  type='text'
                   value={settings.google_search_console}
-                  onChange={(e) => setSettings(prev => ({ ...prev, google_search_console: e.target.value }))}
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      google_search_console: e.target.value,
+                    }))
+                  }
                   className={`w-full px-3 py-2 border rounded-lg ${
-                    isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                    isDark
+                      ? 'bg-gray-800 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
                   }`}
-                  placeholder="Code de vérification"
+                  placeholder='Code de vérification'
                 />
               </div>
             </div>
 
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <h3 className="font-medium text-green-900 mb-2">Statut Analytics</h3>
-              <div className="flex items-center gap-2">
+            <div className='p-4 bg-green-50 border border-green-200 rounded-lg'>
+              <h3 className='font-medium text-green-900 mb-2'>
+                Statut Analytics
+              </h3>
+              <div className='flex items-center gap-2'>
                 {settings.google_analytics_id ? (
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <CheckCircle className='w-5 h-5 text-green-600' />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-yellow-600" />
+                  <AlertCircle className='w-5 h-5 text-yellow-600' />
                 )}
-                <span className="text-sm">
-                  {settings.google_analytics_id ? 'Google Analytics configuré' : 'Google Analytics non configuré'}
+                <span className='text-sm'>
+                  {settings.google_analytics_id
+                    ? 'Google Analytics configuré'
+                    : 'Google Analytics non configuré'}
                 </span>
               </div>
             </div>
@@ -360,60 +456,93 @@ export const SEOManager: React.FC = () => {
 
         {/* Tab Avancé */}
         {activeTab === 'advanced' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center">
+          <div className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='flex items-center'>
                 <input
-                  type="checkbox"
-                  id="canonical_urls"
+                  type='checkbox'
+                  id='canonical_urls'
                   checked={settings.canonical_urls}
-                  onChange={(e) => setSettings(prev => ({ ...prev, canonical_urls: e.target.checked }))}
-                  className="w-4 h-4 text-blue-600 rounded border-gray-300"
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      canonical_urls: e.target.checked,
+                    }))
+                  }
+                  className='w-4 h-4 text-blue-600 rounded border-gray-300'
                 />
-                <label htmlFor="canonical_urls" className="ml-2 text-sm font-medium">
+                <label
+                  htmlFor='canonical_urls'
+                  className='ml-2 text-sm font-medium'
+                >
                   URLs canoniques
                 </label>
               </div>
-              
-              <div className="flex items-center">
+
+              <div className='flex items-center'>
                 <input
-                  type="checkbox"
-                  id="sitemap_enabled"
+                  type='checkbox'
+                  id='sitemap_enabled'
                   checked={settings.sitemap_enabled}
-                  onChange={(e) => setSettings(prev => ({ ...prev, sitemap_enabled: e.target.checked }))}
-                  className="w-4 h-4 text-blue-600 rounded border-gray-300"
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      sitemap_enabled: e.target.checked,
+                    }))
+                  }
+                  className='w-4 h-4 text-blue-600 rounded border-gray-300'
                 />
-                <label htmlFor="sitemap_enabled" className="ml-2 text-sm font-medium">
+                <label
+                  htmlFor='sitemap_enabled'
+                  className='ml-2 text-sm font-medium'
+                >
                   Sitemap automatique
                 </label>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Robots.txt</label>
+              <label className='block text-sm font-medium mb-2'>
+                Robots.txt
+              </label>
               <textarea
                 value={settings.robots_txt}
-                onChange={(e) => setSettings(prev => ({ ...prev, robots_txt: e.target.value }))}
+                onChange={e =>
+                  setSettings(prev => ({ ...prev, robots_txt: e.target.value }))
+                }
                 rows={6}
                 className={`w-full px-3 py-2 border rounded-lg font-mono text-sm ${
-                  isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                  isDark
+                    ? 'bg-gray-800 border-gray-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-900'
                 }`}
-                placeholder="User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: https://devweb31.fr/sitemap.xml"
+                placeholder='User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: https://devweb31.fr/sitemap.xml'
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Structured Data (JSON-LD)</label>
+              <label className='block text-sm font-medium mb-2'>
+                Structured Data (JSON-LD)
+              </label>
               <textarea
                 value={settings.structured_data}
-                onChange={(e) => setSettings(prev => ({ ...prev, structured_data: e.target.value }))}
+                onChange={e =>
+                  setSettings(prev => ({
+                    ...prev,
+                    structured_data: e.target.value,
+                  }))
+                }
                 rows={8}
                 className={`w-full px-3 py-2 border rounded-lg font-mono text-sm ${
-                  isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
+                  isDark
+                    ? 'bg-gray-800 border-gray-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-900'
                 }`}
                 placeholder='{"@context": "https://schema.org", "@type": "Organization", "name": "DevWeb31"}'
               />
-              <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              <p
+                className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+              >
                 Données structurées JSON-LD pour améliorer le référencement
               </p>
             </div>
@@ -422,38 +551,55 @@ export const SEOManager: React.FC = () => {
 
         {/* Tab Outils */}
         {activeTab === 'tools' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <button
                 onClick={generateSitemap}
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className='flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
               >
-                <FileText className="w-4 h-4" />
+                <FileText className='w-4 h-4' />
                 Générer Sitemap
               </button>
-              
+
               <button
                 onClick={testSEOSettings}
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className='flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
               >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className='w-4 h-4' />
                 Tester SEO
               </button>
             </div>
 
-            <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-              <h3 className="font-medium text-gray-900 mb-2">Outils SEO Recommandés</h3>
-              <div className="space-y-2 text-sm">
-                <a href="https://pagespeed.web.dev/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <ExternalLink className="w-3 h-3" />
+            <div className='p-4 bg-gray-50 border border-gray-200 rounded-lg'>
+              <h3 className='font-medium text-gray-900 mb-2'>
+                Outils SEO Recommandés
+              </h3>
+              <div className='space-y-2 text-sm'>
+                <a
+                  href='https://pagespeed.web.dev/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='flex items-center gap-2 text-blue-600 hover:underline'
+                >
+                  <ExternalLink className='w-3 h-3' />
                   Google PageSpeed Insights
                 </a>
-                <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <ExternalLink className="w-3 h-3" />
+                <a
+                  href='https://search.google.com/test/rich-results'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='flex items-center gap-2 text-blue-600 hover:underline'
+                >
+                  <ExternalLink className='w-3 h-3' />
                   Test des résultats enrichis Google
                 </a>
-                <a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <ExternalLink className="w-3 h-3" />
+                <a
+                  href='https://developers.facebook.com/tools/debug/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='flex items-center gap-2 text-blue-600 hover:underline'
+                >
+                  <ExternalLink className='w-3 h-3' />
                   Facebook Sharing Debugger
                 </a>
               </div>
@@ -463,26 +609,26 @@ export const SEOManager: React.FC = () => {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-        <div className="flex items-center gap-2">
+      <div className='flex items-center justify-between pt-6 border-t border-gray-200'>
+        <div className='flex items-center gap-2'>
           <button
             onClick={fetchSEOSettings}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className='flex items-center gap-2 px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors'
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className='w-4 h-4' />
             Actualiser
           </button>
         </div>
-        
+
         <button
           onClick={saveSEOSettings}
           disabled={saving}
-          className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          className='flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors'
         >
           {saving ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
+            <RefreshCw className='w-4 h-4 animate-spin' />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className='w-4 h-4' />
           )}
           {saving ? 'Sauvegarde...' : 'Sauvegarder'}
         </button>
