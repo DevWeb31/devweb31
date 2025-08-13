@@ -168,13 +168,11 @@ jobs:
       - name: 🏗️ Build de production
         run: npm run build
         
-      - name: 🚀 Déploiement sur Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+      - name: 🚀 Déploiement sur Vercel (Désactivé temporairement)
+        run: |
+          echo "⚠️ Déploiement Vercel temporairement désactivé"
+          echo "Pour l'activer, configurez les secrets VERCEL_TOKEN, VERCEL_ORG_ID et VERCEL_PROJECT_ID"
+          echo "Build prêt pour déploiement manuel sur Vercel"
         
       - name: 📝 Déploiement simulé
         run: |
@@ -185,7 +183,7 @@ jobs:
   notify-success:
     name: ✅ Notification de Succès
     runs-on: ubuntu-latest
-    needs: [deploy]
+    needs: [quality, test, build, security, performance]
     if: always() && success()
     
     steps:
