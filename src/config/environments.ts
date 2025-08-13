@@ -43,10 +43,11 @@ export type Environment = keyof typeof ENV_CONFIG;
 // Fonction utilitaire pour obtenir la configuration de l'environnement actuel
 export const getCurrentEnvironment = (): Environment => {
   // Détection automatique basée sur l'URL
-  const isProd = window.location.hostname === 'devweb31.fr' || 
-                 window.location.hostname === 'www.devweb31.fr' ||
-                 import.meta.env.VITE_ENV === 'production';
-  
+  const isProd =
+    window.location.hostname === 'devweb31.fr' ||
+    window.location.hostname === 'www.devweb31.fr' ||
+    import.meta.env.VITE_ENV === 'production';
+
   return isProd ? 'production' : 'development';
 };
 
@@ -75,6 +76,6 @@ export const debugEnvironment = () => {
     VITE_ENV: import.meta.env.VITE_ENV,
     currentEnv: getCurrentEnvironment(),
     isDev: isDevelopment(),
-    isProd: isProduction()
+    isProd: isProduction(),
   });
 };
