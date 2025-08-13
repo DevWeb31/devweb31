@@ -152,26 +152,18 @@ export const LoginPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className={`h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 ${
-                      isDark ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
-                    }`}
-                  />
-                  <label htmlFor="remember-me" className={`ml-2 block text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                    Se souvenir de moi
-                  </label>
-                </div>
-
-                <div className="text-sm">
-                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
-                    Mot de passe oublié ?
-                  </a>
-                </div>
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className={`h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 ${
+                    isDark ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'
+                  }`}
+                />
+                <label htmlFor="remember-me" className={`ml-2 block text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                  Se souvenir de moi
+                </label>
               </div>
 
               <button
