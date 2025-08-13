@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Power, PowerOff, BarChart3, FileText, MessageSquare, Users, Database, Shield, Home, Globe, Mail, Bell, Cog, Star, CheckCircle, Database as DatabaseIcon } from 'lucide-react'
+import { Power, BarChart3, FileText, MessageSquare, Users, Database, Shield, Globe, Mail, Bell, Cog, Star, CheckCircle, Database as DatabaseIcon } from 'lucide-react'
 import { useThemeContext } from '../../contexts/ThemeContext'
 import { supabase } from '../../lib/supabase'
-import { motion } from 'framer-motion'
 
 interface AdminContentProps {
   currentSection: string
@@ -74,7 +73,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
           setDbStatus('✅ Table site_settings accessible')
           setDbValue(data.value)
         }
-      } catch (error) {
+      } catch {
         setDbStatus('❌ Erreur de connexion à la base de données')
         setDbValue('N/A')
       }
@@ -95,7 +94,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
           setDbStatus('✅ Enregistrement créé avec succès')
           setDbValue('false')
         }
-      } catch (error) {
+      } catch {
         setDbStatus('❌ Erreur lors de la création de l\'enregistrement')
         setDbValue('N/A')
       }
@@ -251,7 +250,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
                   }`}>
                     <div className="flex items-center justify-center h-full">
                       {isMaintenanceMode ? (
-                        <PowerOff className="h-3 w-3 text-red-500" />
+                        <Power className="h-3 w-3 text-red-500" />
                       ) : (
                         <Power className="h-3 w-3 text-green-500" />
                       )}
@@ -298,7 +297,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
                   }`}>
                     <div className="flex items-center justify-center h-full">
                       {isMaintenanceMode ? (
-                        <PowerOff className="h-3 w-3 text-red-500" />
+                        <Power className="h-3 w-3 text-red-500" />
                       ) : (
                         <Power className="h-3 w-3 text-green-500" />
                       )}
@@ -333,10 +332,8 @@ export const AdminContent: React.FC<AdminContentProps> = ({
 
             {/* Notification de succès */}
             {successMessage && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${
+              <div
+                className={`mt-3 p-3 rounded-lg flex items-center gap-2 transition-all duration-300 ${
                   isDark ? 'bg-green-900/20 border border-green-800' : 'bg-green-50 border border-green-200'
                 }`}
               >
@@ -344,7 +341,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
                 <span className={`text-sm ${isDark ? 'text-green-300' : 'text-green-800'}`}>
                   {successMessage}
                 </span>
-              </motion.div>
+              </div>
             )}
 
             {/* Composant de débogage temporaire */}

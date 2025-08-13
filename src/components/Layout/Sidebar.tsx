@@ -1,28 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
   Settings, 
   Power, 
-  PowerOff, 
   BarChart3, 
   FileText, 
   MessageSquare, 
   Users, 
   Database, 
   Shield, 
-  Menu, 
-  X,
   ChevronRight,
-  ChevronDown,
   Search,
   Bell,
   Home,
-  Calendar,
   Mail,
   Globe,
   Cog,
-  LogOut,
   ChevronLeft,
-  Star,
   User
 } from 'lucide-react'
 import { useThemeContext } from '../../contexts/ThemeContext'
@@ -56,10 +49,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onToggleCollapse
 }) => {
   const { isDark } = useThemeContext()
-  const [expandedItems, setExpandedItems] = useState<string[]>(['site'])
+  const [expandedItems] = useState<string[]>(['site'])
   const [searchTerm, setSearchTerm] = useState('')
-  const [showSearch, setShowSearch] = useState(false)
-  const searchRef = useRef<HTMLInputElement>(null)
   const [isMobile, setIsMobile] = useState(false)
 
   // Gérer la responsivité de manière plus robuste
@@ -301,13 +292,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       })).filter(item => item.children && item.children.length > 0)
     : menuItems
 
-  const toggleCategory = (id: string) => {
-    setExpandedItems(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    )
-  }
+
 
   const handleSubItemClick = (id: string) => {
     onSectionChange(id)
@@ -317,99 +302,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
   }
 
-  const handleSearchToggle = () => {
-    setShowSearch(!showSearch)
-    if (!showSearch) {
-      setTimeout(() => searchRef.current?.focus(), 100)
-    } else {
-      setSearchTerm('')
-    }
-  }
 
-  const renderMenuItem = (item: MenuItem, level: number = 0) => {
-    const isExpanded = expandedItems.includes(item.id)
-    const isActive = currentSection === item.id
-    const hasChildren = item.children && item.children.length > 0
-
-    return (
-      <div key={item.id}>
-        <div
-          className={`group cursor-pointer transition-all duration-200 ${
-            level === 0 ? 'mb-2' : 'ml-4 mb-1'
-          }`}
-        >
-          <div
-            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
-              isActive
-                ? `${isDark ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-900'}`
-                : `${isDark ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-100 text-gray-700'}`
-            }`}
-            onClick={() => hasChildren ? toggleCategory(item.id) : handleSubItemClick(item.id)}
-          >
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <div className={`flex-shrink-0 ${isActive ? 'text-white' : isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                {item.icon}
-              </div>
-              
-              {!effectiveCollapsed && (
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <div className={`font-medium truncate ${isActive ? 'text-white' : ''}`}>
-                      {item.label}
-                    </div>
-                    {item.isNew && (
-                      <span className="px-2 py-1 text-xs bg-green-500 text-white rounded-full">Nouveau</span>
-                    )}
-                    {item.isPremium && (
-                      <Star className="h-3 w-3 text-yellow-400" />
-                    )}
-                  </div>
-                  {item.description && (
-                    <div className={`text-xs mt-1 truncate ${
-                      isActive ? 'text-blue-100' : isDark ? 'text-gray-500' : 'text-gray-500'
-                    }`}>
-                      {item.description}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-            
-            {!effectiveCollapsed && (
-              <div className="flex items-center gap-2">
-                {item.badge && (
-                  <span className={`px-2 py-1 text-xs rounded-full font-medium ${
-                    isActive 
-                      ? 'bg-white text-blue-600' 
-                      : isDark 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-blue-100 text-blue-600'
-                  }`}>
-                    {item.badge}
-                  </span>
-                )}
-                
-                {hasChildren && (
-                  <div className={`transition-transform duration-200 ${
-                    isExpanded ? 'rotate-90' : ''
-                  }`}>
-                    <ChevronRight className="h-4 w-4" />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Sous-éléments */}
-        {hasChildren && isExpanded && !effectiveCollapsed && (
-          <div className="ml-4 border-l border-gray-300 dark:border-gray-600">
-            {item.children!.map(child => renderMenuItem(child, level + 1))}
-          </div>
-        )}
-      </div>
-    )
-  }
 
   return (
     <>
