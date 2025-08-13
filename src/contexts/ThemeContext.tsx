@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
 export type Theme = 'system' | 'dark' | 'light'
 
@@ -11,13 +11,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export const useThemeContext = () => {
-  const context = useContext(ThemeContext)
-  if (!context) {
-    throw new Error('useThemeContext must be used within a ThemeProvider')
-  }
-  return context
-}
+
 
 interface ThemeProviderProps {
   children: ReactNode
@@ -44,7 +38,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return theme
   }
 
-  const applyTheme = (theme: Theme) => {
+  const applyTheme = useCallback((theme: Theme) => {
     const resolved = getResolvedTheme(theme)
     setResolvedTheme(resolved)
     
@@ -53,7 +47,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     } else {
       document.documentElement.classList.remove('dark')
     }
-  }
+  }, [])
 
   const changeTheme = (newTheme: Theme) => {
     console.log('Changing theme to:', newTheme) // Debug log
@@ -73,11 +67,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     mediaQuery.addEventListener('change', handleChange)
     return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [theme])
+  }, [theme, applyTheme])
 
   useEffect(() => {
     applyTheme(theme)
-  }, [theme])
+  }, [theme, applyTheme])
 
   const value: ThemeContextType = {
     theme,

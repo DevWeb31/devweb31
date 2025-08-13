@@ -12,8 +12,10 @@ import { LoginPage } from './pages/LoginPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { EnvironmentIndicator } from './components/EnvironmentIndicator'
 import { useMaintenanceMode } from './hooks/useMaintenanceMode'
-import { ThemeProvider, useThemeContext } from './contexts/ThemeContext'
-import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { ThemeProvider } from './contexts/ThemeContext'
+import { useThemeContext } from './hooks/useThemeContext'
+import { AuthProvider } from './contexts/AuthContext'
+import { useAuth } from './hooks/useAuth'
 
 function AppContent() {
   const { isDark } = useThemeContext()
