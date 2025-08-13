@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useThemeContext } from '../../hooks/useThemeContext';
 import { supabase } from '../../lib/supabase';
+import { SEOManager } from './SEOManager';
 
 interface AdminContentProps {
   currentSection: string;
@@ -468,44 +469,7 @@ export const AdminContent: React.FC<AdminContentProps> = ({
         );
 
       case 'seo':
-        return (
-          <div
-            className={`rounded-xl shadow-lg p-4 ${isDark ? 'bg-gray-800' : 'bg-white'}`}
-          >
-            {/* Barre de navigation rapide */}
-            <QuickNavBar />
-
-            <div className='flex items-center gap-3 mb-3'>
-              <div
-                className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? 'bg-blue-900' : 'bg-blue-100'}`}
-              >
-                <FileText className='h-5 w-5 text-blue-600' />
-              </div>
-              <div>
-                <h2
-                  className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}
-                >
-                  SEO & Métadonnées
-                </h2>
-                <p
-                  className={`text-sm mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
-                >
-                  Gestion du référencement et des métadonnées du site
-                </p>
-              </div>
-              <Star className='h-5 w-5 text-yellow-400' />
-            </div>
-            <div
-              className={`mt-3 p-3 rounded-lg ${isDark ? 'bg-gray-700' : 'bg-gray-50'}`}
-            >
-              <p
-                className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
-              >
-                🚧 Fonctionnalité Premium en cours de développement
-              </p>
-            </div>
-          </div>
-        );
+        return <SEOManager />;
 
       case 'domains':
         return (
